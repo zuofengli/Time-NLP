@@ -504,6 +504,7 @@ public class TimeUnit
 	 */
 	public void norm_setBaseRelated(){
 		String [] time_grid=new String[6];
+//		System.out.println(normalizer.getTimeBase());
 		time_grid=normalizer.getTimeBase().split("-");
 		int[] ini = new int[6];
 		for(int i = 0 ; i < 6; i++)
@@ -546,6 +547,18 @@ public class TimeUnit
 			int month = Integer.parseInt(match.group());
 			calendar.add(Calendar.MONTH, -month);
 		}
+		
+		//added by zuofeng
+		rule="(?<=近)\\d+(?=(个)?月[以之]?[前来]?)";
+		pattern=Pattern.compile(rule);
+		match=pattern.matcher(Time_Expression);
+		if(match.find())
+		{
+			flag[1] = true;
+			int month = Integer.parseInt(match.group());
+			calendar.add(Calendar.MONTH, -month);
+		}
+		//end 
 		
 		rule="\\d+(?=(个)?月[以之]?后)";
 		pattern=Pattern.compile(rule);
@@ -1075,7 +1088,9 @@ public class TimeUnit
 		isFirstTimeSolveContext = false;
 	}
 	
-	private static Map<Integer, Integer> TUNIT_MAP = new HashMap<>();
+	//private static Map<Integer, Integer> TUNIT_MAP = new HashMap<>();
+	private static Map<Integer, Integer> TUNIT_MAP = new HashMap<Integer, Integer>();
+
 	static{
 		TUNIT_MAP.put(0, Calendar.YEAR);
 		TUNIT_MAP.put(1, Calendar.MONTH);

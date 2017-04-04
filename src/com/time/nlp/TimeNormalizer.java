@@ -32,6 +32,8 @@ public class TimeNormalizer implements Serializable {
 	private static final long serialVersionUID = 463541045644656392L;
 	private String timeBase;
 	private String oldTimeBase;
+
+
 	private static Pattern patterns = null;
 	private String target;
 	private TimeUnit[] timeToken = new TimeUnit[0];
@@ -67,7 +69,7 @@ public class TimeNormalizer implements Serializable {
 		if (patterns == null) {
 			try {
 				patterns = readModel(path);
-				System.out.println(patterns.pattern());
+//				System.out.println(patterns.pattern());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -150,6 +152,9 @@ public class TimeNormalizer implements Serializable {
 	 */
 	public void setTimeBase(String s) {
 		timeBase = s;
+	}
+	public void setOldTimeBase(String s) {
+		oldTimeBase = s;
 	}
 
 	/**
@@ -250,7 +255,8 @@ public class TimeNormalizer implements Serializable {
 		if(timeUnit == null || timeUnit.length < 1){
 			return timeUnit;
 		}
-		List<TimeUnit> list = new ArrayList<>();
+		//List<TimeUnit> list = (List<TimeUnit>) new ArrayList<>();
+		List<TimeUnit> list = (List<TimeUnit>) new ArrayList<TimeUnit>();
         for(TimeUnit t : timeUnit){
         	if(t.getTime().getTime() != -28800000){
         		list.add(t);
